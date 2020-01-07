@@ -11,6 +11,39 @@ use yii\captcha\Captcha;
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<section class="main container">
+
+            <h2 STYLE="text-align: center">"La exigencia y el inconformismo son la base del progreso y la prosperidad" </h2>
+
+    <div class="biografia">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum quae alias accusantium rerum deserunt debitis dicta ratione quaerat aut fugit minus placeat nam unde odit, deleniti sapiente eligendi laborum distinctio!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo deleniti aliquid nostrum earum ipsa pariatur, mollitia placeat amet commodi optio sint distinctio suscipit dolor qui iure autem rerum. Mollitia, repellendus.   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio voluptatibus praesentium, ullam laborum expedita, id, at hic est porro provident repellendus incidunt optio itaque voluptas voluptate earum eos. Vero, ut!
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta laudantium id consequuntur quisquam dicta, quaerat, cum placeat magni sunt aliquid voluptatem repudiandae est distinctio voluptatum quos ducimus omnis vero veniam?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos totam maiores, repellendus ut vitae perspiciatis animi hic cupiditate? Ex commodi odio fuga quas esse nobis temporibus illo distinctio accusamus provident?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse consequatur, maxime inventore iste nam commodi nobis veniam debitis quis veritatis et ex, a quos ipsum accusantium hic dolor praesentium quas.
+        </p></div>
+
+    <div class="biografia">
+        <h3>"Retos"</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum quae alias accusantium rerum deserunt debitis dicta ratione quaerat aut fugit minus placeat nam unde odit, deleniti sapiente eligendi laborum distinctio!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo deleniti aliquid nostrum earum ipsa pariatur, mollitia placeat amet commodi optio sint distinctio suscipit dolor qui iure autem rerum. Mollitia, repellendus.   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio voluptatibus praesentium, ullam laborum expedita, id, at hic est porro provident repellendus incidunt optio itaque voluptas voluptate earum eos. Vero, ut!
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta laudantium id consequuntur quisquam dicta, quaerat, cum placeat magni sunt aliquid voluptatem repudiandae est distinctio voluptatum quos ducimus omnis vero veniam?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos totam maiores, repellendus ut vitae perspiciatis animi hic cupiditate? Ex commodi odio fuga quas esse nobis temporibus illo distinctio accusamus provident?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse consequatur, maxime inventore iste nam commodi nobis veniam debitis quis veritatis et ex, a quos ipsum accusantium hic dolor praesentium quas.
+        </p></div>
+
+    <div class="biografia">
+        <h3>Puedo ayudarte con las siguientes materias</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum quae alias accusantium rerum deserunt debitis dicta ratione quaerat aut fugit minus placeat nam unde odit, deleniti sapiente eligendi laborum distinctio!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo deleniti aliquid nostrum earum ipsa pariatur, mollitia placeat amet commodi optio sint distinctio suscipit dolor qui iure autem rerum. Mollitia, repellendus.   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio voluptatibus praesentium, ullam laborum expedita, id, at hic est porro provident repellendus incidunt optio itaque voluptas voluptate earum eos. Vero, ut!
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta laudantium id consequuntur quisquam dicta, quaerat, cum placeat magni sunt aliquid voluptatem repudiandae est distinctio voluptatum quos ducimus omnis vero veniam?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos totam maiores, repellendus ut vitae perspiciatis animi hic cupiditate? Ex commodi odio fuga quas esse nobis temporibus illo distinctio accusamus provident?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse consequatur, maxime inventore iste nam commodi nobis veniam debitis quis veritatis et ex, a quos ipsum accusantium hic dolor praesentium quas.
+        </p></div>
+</section>
+
+
+
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -32,12 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
     <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
-
         <div class="row">
             <div class="col-lg-5">
 

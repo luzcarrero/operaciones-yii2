@@ -4,12 +4,17 @@ namespace app\models;
 
 class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 {
+    private static $users;
     public $id;
     public $username;
     public $password;
     public $authKey;
     public $accessToken;
     public $role;
+
+
+    public $email;
+    public $activate;
 
     public static function isUserAdmin($id)
     {
@@ -24,7 +29,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
 
     public static function isUserSimple($id)
     {
-        if (users::findOne(['id' => $id, 'activate' => '1', 'role' => 0])){
+        if (users::findOne(['id' => $id, 'activate' => '0', 'role' => 0])){
             return true;
         } else {
 
@@ -37,7 +42,12 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        $user = Users::find()
+            ->where("activate=:activate", [":activate" => 0])
+            ->andWhere("id=:id", ["id" => $id])
+            ->one();
+
+        return isset($user) ? new static($user) : null;
     }
 
     /**
@@ -62,8 +72,13 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
+        $users = Users::find()
+            ->where("activate=:activate", ["activate" => 0])
+            ->andWhere("username=:username", [":username" => $username])
+            ->all();
+
+        foreach ($users as $user) {
+            if (strcasecmp($user->username, $username) === 0) {
                 return new static($user);
             }
         }

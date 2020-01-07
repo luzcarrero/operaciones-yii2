@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\UserForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -13,9 +14,85 @@ use app\models\User;
 use app\models\FormRegister;
 use app\models\Users;
 use yii\widgets\ActiveForm;
+use app\models\Notice;
+use app\models\FormNotices;
+use app\models\FormShearch;
+use app\helpers\Html;
 
 class SiteController extends Controller
 {
+
+    public function actionNews(){
+        $msg="";
+        $table=new Notice;
+        $model=$table->find()->all();
+        $form = new FormShearch();
+        $search = null;
+        if($form->load(Yii::$app->request->get()))
+        {
+            if ($form->validate())
+            {
+                $search = Html::encode($form->q);
+                $query = "SELECT * FROM notice WHERE id LIKE '%$search%' OR ";
+                $query .= "tittle LIKE '%$search%' OR description LIKE '%$search%'";
+                $model = $table->findBySql($query)->all();
+            }
+            else
+            {
+                $form->getErrors();
+            }
+        }
+        return $this->render("news", ["model" => $model, "form" => $form, "search" => $search]);
+
+    }
+    Public function actionNotice(){
+
+        $model = new FormNotices();
+        static $msg = null;
+        if($model->load(Yii::$app->request->post()))
+        {
+
+            if($model->validate())
+            {
+                $table = new Notice();
+                $table->tittle = $model->tittle;
+                $table->date = $model->date;
+                $table->description = $model->description;
+
+                if ($table->insert())
+                {
+                    $msg = "Enhorabuena registro guardado correctamente";
+
+            /*
+                                $user = $table->find()->where(["email" => $model->email])->one();
+                                $id = urlencode($user->id);
+                                $authKey = urlencode($user->authKey);
+                                $subject = "Confirmar registro";
+                                $body = "<h1>Se ha publicado una nueva noticia, entra y se el primero en enterarte de lo último</h1>";
+                                $body .= "<a href='http://localhost:8080/newsletter/newsletter/web/index.php'>irrrrrrrrrrrrrrr</a>";
+            //
+                                //Enviamos el correo
+                                Yii::$app->mailer->compose()
+                                    ->setTo($user->email)
+                                    ->setFrom([Yii::$app->params["adminEmail"] => Yii::$app->params["title"]])
+                                    ->setSubject($subject)
+                                    ->setHtmlBody($body)
+                                    ->send();
+            */
+                }
+                else
+                {
+                    $msg = "Ha ocurrido un error al insertar el registro";
+                }
+            }
+            else
+            {
+                $model->getErrors();
+            }
+        }
+        return $this->render("notices", ['model' => $model, 'msg' => $msg]);
+ }
+
 
     private function randKey($str='', $long=0)
     {
@@ -32,10 +109,9 @@ class SiteController extends Controller
 
     public function actionConfirm()
     {
-        $table = new Users;
+        $table = new Users();
         if (Yii::$app->request->get())
         {
-
             //Obtenemos el valor de los parámetros get
             $id = Html::encode($_GET["id"]);
             $authKey = $_GET["authKey"];
@@ -74,6 +150,7 @@ class SiteController extends Controller
                 return $this->redirect(["site/login"]);
             }
         }
+       // return $this->redirect(["site/login"]);
     }
 
     public function actionRegister()
@@ -98,7 +175,7 @@ class SiteController extends Controller
             if($model->validate())
             {
                 //Preparamos la consulta para guardar el usuario
-                $table = new Users;
+                $table = new Users();
                 $table->username = $model->username;
                 $table->email = $model->email;
                 //Encriptamos el password
@@ -119,8 +196,8 @@ class SiteController extends Controller
                     $authKey = urlencode($user->authKey);
                     $subject = "Confirmar registro";
                     $body = "<h1>Haga click en el siguiente enlace para finalizar tu registro</h1>";
-                    $body .= "<a href='http://yii.local/index.php?r=site/confirm&id=".$id."&authKey=".$authKey."'>Confirmar</a>";
-
+                    $body .= "<a href='http://localhost:8080/newsletter/newsletter/web/index.php?r=site%2Flogin'>Confirmar</a>";
+//
                     //Enviamos el correo
                     Yii::$app->mailer->compose()
                         ->setTo($user->email)
@@ -151,7 +228,7 @@ class SiteController extends Controller
         return $this->render('user');
     }
     public function actionAdmin(){
-        return $this->render('admin');
+        return $this->render('site/admin');
     }
 
     /**
@@ -232,7 +309,6 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
     /**
      * Login action.
      *
@@ -294,7 +370,6 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
             return $this->refresh();
         }
         return $this->render('contact', [
